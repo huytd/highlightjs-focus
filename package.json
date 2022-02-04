@@ -1,16 +1,31 @@
 {
-  "name": "highlightjs-line-focus",
+  "name": "@huytd/highlightjs-focus",
   "version": "1.0.0",
-  "source": "src/main.ts",
+  "source": "src/index.ts",
   "main": "dist/main.js",
+  "module": "dist/module.js",
   "types": "dist/types.d.ts",
+  "author": "huytd",
+  "keywords": [
+    "highlightjs",
+    "plugin",
+    "focus"
+  ],
   "scripts": {
-    "build": "parcel build src/main.ts"
+    "build": "parcel build"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/huytd/highlightjs-focus"
+  },
+  "homepage": "https://github.com/huytd/highlightjs-focus",
   "license": "BSD-3-Clause",
   "devDependencies": {
+    "@parcel/packager-ts": "^2.2.1",
+    "@parcel/transformer-typescript-types": "^2.2.1",
+    "@tsconfig/recommended": "^1.0.1",
     "highlight.js": "^11.4.0",
-    "typescript": "^4.5.5",
-    "parcel-bundler": "^1.12.5"
+    "parcel": "^2.0.0",
+    "typescript": "^4.5.5"
   }
 }

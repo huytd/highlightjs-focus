@@ -7,10 +7,10 @@ export interface LineFocusOptions {
 
 export class LineFocusPlugin {
     currentAttribute: string = "";
-    options: LineFocusOptions;
+    options?: LineFocusOptions;
 
     constructor(options?: LineFocusOptions) {
-        this.options = options ?? undefined;
+        this.options = options;
     }
 
     'before:highlight'(context: BeforeHighlightContext) {
@@ -21,7 +21,7 @@ export class LineFocusPlugin {
         }
     }
 
-    getStyle(style?: object): string {
+    getStyle(style?: any): string {
         if (!style) return "";
         return Object.keys(style).reduce((acc, key) => (
             acc + key.split(/(?=[A-Z])/).join('-').toLowerCase() + ':' + style[key] + ';'
@@ -30,7 +30,7 @@ export class LineFocusPlugin {
 
     getFocusedLines(): number[] {
         const [command, param] = this.currentAttribute?.trim().split('=');
-        let result = [];
+        let result: number[] = [];
         if (command === 'focus') {
             param.split(",").forEach(num => {
                 if (num.indexOf(":") !== -1) {
