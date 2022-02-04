@@ -1,5 +1,5 @@
 {
-  "name": "@huytd/highlightjs-focus",
+  "name": "highlightjs-focus",
   "version": "1.0.0",
   "source": "src/index.ts",
   "main": "dist/main.js",
