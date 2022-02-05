@@ -1,6 +1,7 @@
 import { BeforeHighlightContext, HighlightResult } from 'highlight.js';
 
 export interface LineFocusOptions {
+    normalStyle?: Partial<CSSStyleDeclaration>,
     focusedStyle?: Partial<CSSStyleDeclaration>,
     unfocusedStyle?: Partial<CSSStyleDeclaration>
 };
@@ -28,8 +29,8 @@ export class LineFocusPlugin {
         ), '');
     }
 
-    getFocusedLines(): number[] {
-        const [command, param] = this.currentAttribute?.trim().split('=');
+    getFocusedLines(input: string): number[] {
+        const [command, param] = input.trim().split('=');
         let result: number[] = [];
         if (command === 'focus') {
             param.split(",").forEach(num => {
@@ -43,16 +44,19 @@ export class LineFocusPlugin {
                 }
             });
         }
-        return result;
+        result = result.filter(n => n > 0 && !isNaN(n)).sort((a, b) => a - b);
+        return [...new Set(result)];
     }
 
     'after:highlight'(result: HighlightResult) {
-        const focusedLines = this.getFocusedLines();
-        if (!focusedLines.length) return;
-
+        const focusedLines = this.getFocusedLines(this.currentAttribute);
         const lines = result.value.split("\n").map((line, num) => {
             const focused = focusedLines.indexOf(num+1) !== -1;
-            const styles = this.getStyle(focused ? this.options?.focusedStyle : this.options?.unfocusedStyle);
+            const styles = this.getStyle(
+                focusedLines.length === 0 ?
+                    this.options?.normalStyle :
+                    (focused ? this.options?.focusedStyle : this.options?.unfocusedStyle)
+                );
             return `<div style="${styles}">${line || " "}</div>`;
         });
         result.value = lines.join("");
