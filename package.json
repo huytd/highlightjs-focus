@@ -1,6 +1,6 @@
 {
   "name": "highlightjs-focus",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "source": "src/index.ts",
   "main": "dist/main.js",
   "module": "dist/module.js",
@@ -12,7 +12,8 @@
     "focus"
   ],
   "scripts": {
-    "build": "parcel build"
+    "build": "parcel build",
+    "watch": "parcel watch"
   },
   "repository": {
     "type": "git",
