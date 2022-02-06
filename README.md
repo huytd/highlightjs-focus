@@ -2,6 +2,8 @@
 
 This plugin provide the ability to highlight a focused line when using Highlight.js
 
+<img width="622" alt="image" src="https://user-images.githubusercontent.com/613943/152668852-63207574-93da-46d2-8a0d-f91b20985a44.png">
+
 To use, first, register this plugin with `addPlugin` command:
 
 ```js
