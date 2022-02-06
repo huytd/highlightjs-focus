@@ -49,18 +49,19 @@ export class LineFocusPlugin {
     }
 
     'after:highlight'(result: HighlightResult) {
-        if (!result.value.includes('hljs-focus-processed')) {
+        if (!result.value.includes('hljs-focus processed')) {
             const focusedLines = this.getFocusedLines(this.currentAttribute);
             const lines = result.value.split("\n").map((line, num) => {
                 const focused = focusedLines.indexOf(num + 1) !== -1;
+                const focusState = focusedLines.length === 0 ?  'normal' : (focused ? 'focused' : 'unfocused');
                 const styles = this.getStyle(
                     focusedLines.length === 0 ?
                         this.options?.normalStyle :
                         (focused ? this.options?.focusedStyle : this.options?.unfocusedStyle)
                 );
-                return `<div style="${styles}">${line || " "}</div>`;
+                return `<span class="hljs-focus ${focusState}" style="${styles}">${line || " "}</span>`;
             });
-            result.value = lines.join("") + "<i class='hljs-focus-processed'></i>";
+            result.value = lines.join("\n").trim() + "<i style='display: none' class='hljs-focus processed'></i>";
         }
     }
 };
